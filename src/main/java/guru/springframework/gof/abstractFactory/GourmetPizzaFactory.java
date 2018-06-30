@@ -5,29 +5,31 @@ import guru.springframework.gof.abstractFactory.product.CheesePizza;
 import guru.springframework.gof.abstractFactory.product.PepperoniPizza;
 import guru.springframework.gof.abstractFactory.product.Pizza;
 import guru.springframework.gof.abstractFactory.product.VeggiePizza;
+import guru.springframework.gof.abstractFactory.topping.Cheese;
+import guru.springframework.gof.abstractFactory.topping.Sauce;
 
 public class GourmetPizzaFactory extends BasePizzaFactory {
 
     @Override
-    public  Pizza createPizza(String type){
-        Pizza pizza;
-        BaseToppingFactory toppingFactory= new GourmetToppingFactory();
-        switch (type.toLowerCase())
+    public  Pizza createPizza(PizzaType type, Cheese cheese, Sauce sauce){
+        Pizza pizza = null;
+
+        switch (type)
         {
-            case "cheese":
-                pizza = new CheesePizza(toppingFactory);
+            case CHEESE:
+                pizza = new CheesePizza();
                 break;
-            case "pepperoni":
-                pizza = new PepperoniPizza(toppingFactory);
+            case PEPPERONI:
+                pizza = new PepperoniPizza();
                 break;
-            case "veggie":
-                pizza = new VeggiePizza(toppingFactory);
+            case VEGGIE:
+                pizza = new VeggiePizza();
                 break;
             default: throw new IllegalArgumentException("No such pizza.");
         }
 
-        pizza.addIngredients();
-        pizza.bakePizza();
+
+
         return pizza;
     }
 }
